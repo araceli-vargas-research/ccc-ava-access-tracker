@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "name": "CCC AVA Tracker",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.terminal.activateEnvironment": true
+  }
+}

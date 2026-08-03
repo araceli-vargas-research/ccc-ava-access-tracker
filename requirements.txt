@@ -1,0 +1,7 @@
+streamlit>=1.46.0
+pandas>=2.2.0
+plotly>=6.0.0
+pyarrow
+duckdb
+protobuf
+grpcio-tools

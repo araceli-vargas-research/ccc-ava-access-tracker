@@ -1,0 +1,15 @@
+rule_id,category,condition,base_score
+ME01,Market-entry restrictions,Commercial operation expressly prohibited or no lawful pathway identified,1.0
+ME02,Market-entry restrictions,No commercial pathway; testing only,0.5
+ME03,Market-entry restrictions,Temporary or controlled pilot,0.3
+ME04,Market-entry restrictions,"Limited operators, vehicles, or services",0.2
+ME05,Market-entry restrictions,General commercial pathway available,0.0
+SA01,Screening and approval,Discretionary approval with unbounded criteria,0.15
+SA02,Screening and approval,Mandatory pilot or testing before deployment,0.1
+SA03,Screening and approval,Separate AV permit,0.05
+HO01,Human-operator restrictions,Onboard operator required for commercial operation,0.2
+HO02,Human-operator restrictions,Onboard operator required for testing,0.1
+OO01,Other operational restrictions,Broad local authority to impose separate AV rules,0.1
+OO02,Other operational restrictions,"Geographic, route, hour, fleet, or passenger restriction",0.05
+OO03,Other operational restrictions,AV financial requirement more than 1x but below 5x comparable TNC minimum,0.03
+OO04,Other operational restrictions,AV financial requirement at least 5x comparable TNC minimum,0.05

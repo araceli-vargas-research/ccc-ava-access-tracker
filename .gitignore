@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.streamlit/secrets.toml
+data/raw/
+*.tfrecord
+vendor/waymo-open-dataset/
+vendor/waymo-open-dataset/

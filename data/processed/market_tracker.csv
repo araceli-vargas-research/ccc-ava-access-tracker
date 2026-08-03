@@ -1,0 +1,15 @@
+operator,market,state,state_code,vehicle_use,service_status,public_access,booking_method,source_url,last_verified
+Waymo,Atlanta,Georgia,GA,Robotaxi,Commercial,Yes,Uber,https://waymo.com/,2026-07-20
+Waymo,Austin,Texas,TX,Robotaxi,Commercial,Yes,Uber,https://waymo.com/,2026-07-20
+Waymo,Dallas,Texas,TX,Robotaxi,Commercial,Yes,Waymo,https://waymo.com/,2026-07-20
+Waymo,Houston,Texas,TX,Robotaxi,Commercial,Yes,Waymo,https://waymo.com/,2026-07-20
+Waymo,Los Angeles,California,CA,Robotaxi,Commercial,Yes,Waymo One,https://waymo.com/,2026-07-20
+Waymo,Miami,Florida,FL,Robotaxi,Commercial,Yes,Waymo One,https://waymo.com/,2026-07-20
+Waymo,Nashville,Tennessee,TN,Robotaxi,Commercial,Yes,Waymo,https://waymo.com/,2026-07-20
+Waymo,Orlando,Florida,FL,Robotaxi,Commercial,Yes,Waymo One,https://waymo.com/,2026-07-20
+Waymo,Phoenix,Arizona,AZ,Robotaxi,Commercial,Yes,Waymo One,https://waymo.com/,2026-07-20
+Waymo,San Antonio,Texas,TX,Robotaxi,Commercial,Yes,Waymo,https://waymo.com/,2026-07-20
+Waymo,San Francisco Bay Area,California,CA,Robotaxi,Commercial,Yes,Waymo One,https://waymo.com/,2026-07-20
+Zoox,Las Vegas,Nevada,NV,Robotaxi,Commercial,Yes,Zoox app,https://zoox.com/community,2026-07-20
+Zoox,San Francisco,California,CA,Robotaxi,Select riders,Limited,Zoox Explorers,https://zoox.com/community,2026-07-20
+Aurora,Dallas-Houston corridor,Texas,TX,Freight,Commercial,No,Freight contracts,https://aurora.tech/newsroom,2026-07-20

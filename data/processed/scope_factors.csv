@@ -1,0 +1,7 @@
+scope_band,estimated_share_of_activity,scope_factor
+Fully,>=90%,1.0
+Largely,50% to <90%,0.75
+Fairly,30% to <50%,0.5
+Moderately,10% to <30%,0.25
+Marginally,5% to <10%,0.1
+Residually,<5%,0.05
