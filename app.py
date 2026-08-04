@@ -101,7 +101,7 @@ st.markdown(f"""
   <div class="hero-image" style="background-image:linear-gradient(90deg,rgba(34,38,78,.12),rgba(34,38,78,.02)),url('{hero}')"></div>
 </section>
 <div class="definition">
-  <p><b>What is consumer access?</b> Consumer access means that a commercial driverless passenger service is available for members of the public to book within a defined geographic market.</p>
+  <p><b>What is consumer access?</b> Consumer access means that a commercial driverless passenger service is available for consumers to book within a defined geographic market.</p>
   <p><b>What qualifies as driverless passenger service?</b> The automated driving system performs the driving task without an onboard human safety driver. Testing, freight, services requiring an onboard safety driver, and announced future markets are reported separately.</p>
 </div>
 """, unsafe_allow_html=True)
