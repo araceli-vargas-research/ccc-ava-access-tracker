@@ -145,7 +145,7 @@ with about_right:
 
 st.markdown('''
 <section class="avat-research-overview">
-  <div class="avat-overview-marker">01</div>
+  <div class="avat-overview-marker" aria-hidden="true"></div>
   <div class="avat-overview-kicker">WHY IT MATTERS</div>
   <h2>Access, safety, and regulation across the United States</h2>
   <p>The tracker combines operational market data, reported safety findings, and state and federal policy conditions in one source-linked research interface.</p>
@@ -204,7 +204,7 @@ with st.expander("View component analysis by jurisdiction"):
     st.dataframe(display, hide_index=True, width="stretch", column_config={"restrictiveness_index":st.column_config.NumberColumn("Index",format="%.2f"),"source_url":st.column_config.LinkColumn("Primary source")})
 
 st.markdown('<div id="markets"></div>', unsafe_allow_html=True)
-section_band("02 · CONSUMER ACCESS", "Public AV access remains geographically concentrated", "Commercial autonomous-vehicle activity is expanding, but verified public robotaxi access remains concentrated in a relatively small group of markets and states. Track where autonomous passenger and freight services are publically reported across the United States. Operational market records are reported separately from legal restrictiveness.", "#22264E", "#FFFFFF", "#EE5C1F")
+section_band("02 · CONSUMER ACCESS", "Where are autonomous services operating?", "Track where autonomous passenger and freight services are recorded across the United States. Operational market records are reported separately from legal restrictiveness.", "#22264E", "#FFFFFF", "#EE5C1F")
 
 public = markets[(markets.public_access.eq("Yes")) & (markets.service_status.eq("Commercial"))].copy()
 with st.container(key="access_metrics"):
@@ -237,6 +237,8 @@ st.caption("Bar height represents unique markets in this dataset, not ridership,
 with st.expander("View active AV market records and sources"):
     st.dataframe(markets, hide_index=True, width="stretch", column_config={"source_url":st.column_config.LinkColumn("Source")})
 
+# The detailed State Explorer is populated later but displayed here, immediately
+# after Consumer Access, so the source remains organized without duplicating it.
 state_explorer_slot = st.container()
 
 st.markdown('<div id="safety"></div>', unsafe_allow_html=True)
@@ -323,7 +325,7 @@ with b:
 
 state_explorer_slot.__enter__()
 st.markdown('<div id="audit"></div>', unsafe_allow_html=True)
-section_band("03 · STATE EXPLORER", "Where autonomous vehicle services are operating today", "Some states align with every regulatory criterion currently measured while still lacking a verified public robotaxi service in the market tracker. Filter by operator, state, or service status to see which markets are currently included in the tracker. Scores run from 0.00 (least restrictive) to 1.00 (most restrictive); missing evidence remains unclassified.", "#22264E", "#FFFFFF", "#EE5C1F")
+section_band("03 · STATE EXPLORER", "Every jurisdiction at a glance", "Review autonomous-vehicle policy conditions, scoring components, research notes, and official sources for every state and the District of Columbia. Scores run from 0.00 (least restrictive) to 1.00 (most restrictive); missing evidence remains unclassified.", "#22264E", "#FFFFFF", "#EE5C1F")
 
 if "selected_jurisdiction" not in st.session_state:
     st.session_state.selected_jurisdiction = None
