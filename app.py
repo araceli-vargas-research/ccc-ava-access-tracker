@@ -12,7 +12,7 @@ ROOT = Path(__file__).parent
 DATA = ROOT / "data" / "processed"
 ASSETS = ROOT / "assets"
 
-st.set_page_config(page_title="AVA Restrictiveness Tracker | CCC", page_icon="🚘", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Autonomous Vehicle Access Tracker | CCC", page_icon="🚘", layout="wide", initial_sidebar_state="collapsed")
 st.markdown(f"<style>{(ROOT / 'styles.css').read_text()}</style>", unsafe_allow_html=True)
 
 
@@ -41,11 +41,11 @@ logo = uri(ASSETS / "ccc-logo.png")
 hero = uri(ASSETS / "av-dashboard-hero.jpg")
 
 st.markdown(f"""
-<nav><img src="{logo}" alt="Consumer Choice Center"><span>AVA TRACKER</span>
+<nav><img src="{logo}" alt="Consumer Choice Center"><span>Autonomous Vehicle Access Tracker</span>
 <div><a href="#index">Index</a><a href="#markets">Commercial access</a><a href="#method">Methodology</a><a href="#audit">Audit</a></div></nav>
 <section class="hero">
-  <div><div class="eyebrow">AUTONOMOUS VEHICLE POLICY</div><h1>Where rules restrict autonomous vehicle access.</h1>
-  <p>The AVA Tracker compares statutory barriers to <b>commercial driverless passenger service</b> across all 50 states and the District of Columbia. A higher index means a more restrictive framework.</p>
+  <div><div class="eyebrow">AUTONOMOUS VEHICLE POLICY</div><h1> Autonomous Vehicle Access Tracker</h1>
+  <p>The Autonomous Vehicle Access Tracker (AVAT) compares statutory barriers to <b>commercial driverless passenger service</b> across all 50 states and the District of Columbia. A higher index score indicates a more restrictive regulatory framework.</p>
   <a class="button" href="#index">Explore the index →</a></div>
   <div class="hero-image" style="background-image:linear-gradient(90deg,rgba(34,38,78,.12),rgba(34,38,78,.02)),url('{hero}')"></div>
 </section>
@@ -57,7 +57,7 @@ with about_left:
     st.markdown(
         '''<section class="about-title">
           <div class="section-kicker compact">ABOUT THE TRACKER</div>
-          <h2>What is the AVA Tracker?</h2>
+          <h2>What is the Autonomous Vehicle Access Tracker?</h2>
           <p>A source-linked indicator of legal restrictions affecting commercial driverless passenger service across U.S. jurisdictions.</p>
         </section>''',
         unsafe_allow_html=True,
@@ -67,7 +67,7 @@ with about_right:
         '''<div class="ava-accordion">
           <details>
             <summary>Overview</summary>
-            <p>The AVA Tracker covers all 50 states and the District of Columbia. It supports comparison of market-entry conditions and the monitoring of state-level AV policy reform.</p>
+            <p>The Autonomous Vehicle Access Tracker (AVAT) covers all 50 states and the District of Columbia. It supports comparison of market-entry conditions and the monitoring of state-level AV policy reform.</p>
           </details>
           <details>
             <summary>What does the index measure?</summary>
@@ -90,7 +90,7 @@ with about_right:
     )
 
 st.markdown('<div id="index"></div>', unsafe_allow_html=True)
-section("01 · STATE RESTRICTIVENESS", "A 0–1 index, not a grade", "Zero denotes the least restrictive observed legal conditions. One denotes an effectively closed or maximally restrictive framework under the published rules. The index does not measure safety, service quality, or whether a state is doing everything perfectly.")
+section("01 · STATE RESTRICTIVENESS", "What is the geographic coverage of the AV Access Tracker?", "The AV Access Tracker (AVAT) covers all 50 states and the District of Columbia. The map displays each classified state’s regulatory restrictiveness score for commercial driverless passenger service. Scores closer to 0 indicate fewer documented restrictions, while scores closer to 1 indicate a more restrictive or effectively closed framework. The District of Columbia is reported separately and excluded from formal state rankings.")
 
 ranked = states.loc[states.include_in_state_ranking.eq(True) & states.restrictiveness_index.notna()].copy()
 unclassified = states.restrictiveness_index.isna().sum()
@@ -105,12 +105,25 @@ view = states[states.region.isin(region)].copy()
 map_data = view[view.state_code.ne("DC") & view.restrictiveness_index.notna()].copy()
 map_data["index_display"] = map_data.restrictiveness_index.map(lambda x: f"{x:.2f}")
 
+if "map_projection_scale" not in st.session_state:
+    st.session_state.map_projection_scale = 1.0
+
+zoom_out, zoom_reset, zoom_in, zoom_note = st.columns([0.12, 0.12, 0.12, 0.64], vertical_alignment="center")
+if zoom_out.button("− Zoom", key="map_zoom_out", use_container_width=True):
+    st.session_state.map_projection_scale = max(1.0, round(st.session_state.map_projection_scale - 0.1, 1))
+if zoom_reset.button("Reset", key="map_zoom_reset", use_container_width=True):
+    st.session_state.map_projection_scale = 1.0
+if zoom_in.button("+ Zoom", key="map_zoom_in", use_container_width=True):
+    st.session_state.map_projection_scale = min(1.5, round(st.session_state.map_projection_scale + 0.1, 1))
+zoom_note.caption(f"Map zoom: {st.session_state.map_projection_scale:.1f}× · Limited to 1.0–1.5×")
+
 fig = px.choropleth(map_data, locations="state_code", locationmode="USA-states", scope="usa", color="restrictiveness_index",
     range_color=(0,1), color_continuous_scale=["#9BD8C7", "#F4B544", "#E95C1F", "#B9473A"],
     hover_name="state", custom_data=["index_display", "commercial_access_status", "policy_summary", "score_status"])
 fig.update_traces(hovertemplate="<b>%{hovertext}</b><br><br>Restrictiveness index: <b>%{customdata[0]}</b><br>Commercial pathway: %{customdata[1]}<br>Status: %{customdata[3]}<br><br>%{customdata[2]}<extra></extra>")
-fig.update_layout(height=570, margin=dict(l=0,r=0,t=20,b=0), paper_bgcolor="rgba(0,0,0,0)", font_family="Montserrat", coloraxis_colorbar=dict(title="Restriction<br>0–1", tickvals=[0,.25,.5,.75,1]))
-st.plotly_chart(fig, width="stretch", config={"displayModeBar":False})
+fig.update_geos(projection_scale=st.session_state.map_projection_scale)
+fig.update_layout(height=570, margin=dict(l=0,r=0,t=20,b=0), paper_bgcolor="rgba(0,0,0,0)", font_family="Montserrat", dragmode=False, uirevision="bounded-us-map", coloraxis_colorbar=dict(title="Restriction<br>0–1", tickvals=[0,.25,.5,.75,1]))
+st.plotly_chart(fig, width="stretch", config={"displayModeBar":False, "scrollZoom":False, "doubleClick":False})
 st.caption("District of Columbia is included in the research table but excluded from formal state rankings. Hover text shows the legal classification and source-based summary.")
 
 bar = ranked.sort_values("restrictiveness_index", ascending=False)
@@ -220,5 +233,5 @@ st.markdown("""
 OECD (2024), <i>OECD FDI Regulatory Restrictiveness Index: Methodology and policy applications</i>.<br>
 OECD & European Commission, Joint Research Centre (2008), <i>Handbook on Constructing Composite Indicators: Methodology and User Guide</i>.<br><br>
 The dashboard complements the autonomous-vehicle primer; it is not a reproduction of any operator dashboard and does not assess vehicle safety performance.
-</div><footer>CONSUMER CHOICE CENTER <span>AVA Tracker · Research release</span></footer>
+</div><footer>CONSUMER CHOICE CENTER <span>Autonomous Vehicle Access Tracker · Research release</span></footer>
 """, unsafe_allow_html=True)
